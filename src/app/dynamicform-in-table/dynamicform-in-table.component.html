@@ -1,0 +1,106 @@
+<div class="container-fluid mt-4">
+  <!-- Header -->
+  <div class="header">
+    <h3>Inline Table Editing</h3>
+    <p class="mb-0">with Reactive Form, validation, select / de-select All</p>
+  </div>
+
+  <!-- Add Employee Button -->
+  <div class="text-end mb-2">
+    <button class="btn btn-success btn-sm me-2" (click)="addRow()">
+      Add Employee
+    </button>
+    <button class="btn btn-success btn-sm" (click)="deleteRow()">
+      Delete Row
+    </button>
+  </div>
+
+  <!-- Table -->
+  <form>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>
+            <input
+              type="checkbox"
+              name="selectAll"
+              [checked]="isCheckedAll"
+              (change)="toggleAllSelection($event)"
+            />
+          </th>
+          <th>FIRST NAME</th>
+          <th>LAST NAME</th>
+          <th>STATUS</th>
+          <th>CITY</th>
+          <th>STATE</th>
+        </tr>
+      </thead>
+      <tbody [formGroup]="employeeForm">
+        <ng-container formArrayName="tableRows">
+          <tr
+            *ngFor="let item of getNewRow.controls; let i = index"
+            [formGroupName]="i"
+          >
+            <td class="text-center">
+              <input
+                type="checkbox"
+                formControlName="isChecked"
+                (change)="SelectChecked()"
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter First"
+                formControlName="firsname"
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter Last"
+                formControlName="lastname"
+              />
+            </td>
+            <td>
+              <select class="form-control" formControlName="status">
+                <option>Select Status</option>
+                <option>Active</option>
+                <option>Inactive</option>
+              </select>
+            </td>
+            <td>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter City"
+                formControlName="city"
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter State"
+                formControlName="state"
+              />
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+
+    <!-- Save Button -->
+    <div class="text-center">
+      <button
+        type="submit"
+        class="btn btn-success btn-save"
+        (click)="onSubmit()"
+      >
+        Save Bulk Employee
+      </button>
+    </div>
+  </form>
+</div>

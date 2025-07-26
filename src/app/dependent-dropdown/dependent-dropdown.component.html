@@ -1,0 +1,60 @@
+<div class="container-fluid mt-5">
+  <div class="header-section">
+    <h2>Angular Logic Building</h2>
+    <p>Dependent Dropdown Angular</p>
+  </div>
+
+  <form class="form-section" [formGroup]="form">
+    <div class="row g-3">
+      <div class="col-md-3">
+        <label class="form-label" for="clientSelect">Select Client</label>
+        <select class="form-select" formControlName="client">
+          <option selected>Select</option>
+          <option
+            value="{{ item.clientId }}"
+            *ngFor="let item of allClientData"
+          >
+            {{ item.clientName }}
+          </option>
+        </select>
+      </div>
+
+      <div class="col-md-3">
+        <label class="form-label" for="siteSelect">Select Site</label>
+        <select class="form-select" id="siteSelect" formControlName="site">
+          <option selected>Select</option>
+          <option value="{{ item.clientId }}" *ngFor="let item of site">
+            {{ item.siteName }}
+          </option>
+        </select>
+      </div>
+
+      <div class="col-md-3">
+        <label class="form-label" for="buildingSelect">Select Building</label>
+        <select
+          class="form-select"
+          id="buildingSelect"
+          formControlName="building"
+        >
+          <option selected>Select</option>
+          <!-- Populate based on selected site -->
+        </select>
+      </div>
+
+      <div class="col-md-3">
+        <label class="form-label" for="floorSelect">Select Floor</label>
+        <select class="form-select" id="floorSelect" formControlName="floor">
+          <option selected>Select</option>
+          <!-- Populate based on selected building -->
+        </select>
+      </div>
+    </div>
+
+    <div class="mt-4 text-center">
+      <button type="button" class="btn btn-secondary me-2">Refresh</button>
+      <button type="submit" class="btn btn-success" (click)="onSave()">
+        Save
+      </button>
+    </div>
+  </form>
+</div>

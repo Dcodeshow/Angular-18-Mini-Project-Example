@@ -1,0 +1,32 @@
+.header {
+  background-color: #227744;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  border-radius: 5px 5px 0 0;
+  margin-bottom: 10px;
+}
+
+.table thead th {
+  background-color: #222;
+  color: white;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.form-control {
+  height: 40px;
+}
+
+.btn-remove {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btn-remove:hover {
+  background-color: #c82333;
+}
+
+.btn-save {
+  margin-top: 10px;
+}

@@ -1,0 +1,50 @@
+{
+  "message": "",
+  "result": true,
+  "data": [
+    {
+      "clientId": 238,
+      "clientName": "Kedar Group",
+      "businessName": "KDN Associates",
+      "contactPerson": "Mahesh",
+      "contactNo": "9874563214",
+      "altContactNo": "7896541236",
+      "email": "kdn@gmail.com",
+      "createdDate": "2023-01-05T08:19:03.14",
+      "logo": "www.kdnAssociates.com"
+    },
+    {
+      "clientId": 239,
+      "clientName": "Poonam IT Services",
+      "businessName": "IT",
+      "contactPerson": "kalyan",
+      "contactNo": "9874563215",
+      "altContactNo": "7894561236",
+      "email": "poonam@gmail.com",
+      "createdDate": "2023-01-05T09:05:29.043",
+      "logo": "www.itservices.com"
+    },
+    {
+      "clientId": 240,
+      "clientName": "Virat",
+      "businessName": "Automobile",
+      "contactPerson": "Rohit",
+      "contactNo": "9876543219",
+      "altContactNo": "9631478525",
+      "email": "avk18@gmail.com",
+      "createdDate": "2023-01-05T11:40:03.757",
+      "logo": "www.vk18.com"
+    },
+    {
+      "clientId": 241,
+      "clientName": "Sachin",
+      "businessName": "Textile",
+      "contactPerson": "Anand",
+      "contactNo": "7896544561",
+      "altContactNo": "9631478525",
+      "email": "sach@gmail.com",
+      "createdDate": "2023-01-07T10:48:18.883",
+      "logo": "www.sachAssociates.com"
+    }
+  ]
+}

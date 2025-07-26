@@ -1,0 +1,266 @@
+<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+  <div class="container mt-5">
+    <div class="card">
+      <div class="card-header bg-primary text-white">
+        <h2 class="h4">Personal Details</h2>
+      </div>
+      <div class="card-body">
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <label for="firstName" class="form-label fw-bold">First Name</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="fname"
+              placeholder="Enter your first name"
+            />
+          </div>
+          <div class="col-md-4">
+            <label for="middleName" class="form-label fw-bold"
+              >Middle Name</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              formControlName="mname"
+              placeholder="Enter your middle name"
+            />
+          </div>
+          <div class="col-md-4">
+            <label for="lastName" class="form-label fw-bold">Last Name</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="lname"
+              placeholder="Enter your last name"
+            />
+          </div>
+        </div>
+
+        <hr class="my-4" />
+
+        <div class="row mb-3">
+          <div class="col-md-12">
+            <label for="fullName" class="form-label fw-bold">Full Name</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="fullName"
+              placeholder="Enter your full name"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container mt-5">
+    <div class="card">
+      <div class="card-header bg-primary text-white">
+        <h2 class="h4">Job Details</h2>
+      </div>
+      <div class="card-body">
+        <!-- Row 1 -->
+        <div class="row form-section">
+          <div class="col-md-4 mb-3">
+            <label for="isWorking" class="form-label">Is Working</label>
+            <select
+              class="form-select"
+              id="isWorking"
+              formControlName="isWorking"
+            >
+              <option selected>Select...</option>
+              <option>Yes</option>
+              <option>No</option>
+            </select>
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <label for="jobType" class="form-label">Select Job Type</label>
+            <select class="form-select" formControlName="jobType">
+              <option selected>Select...</option>
+              <option>Full-time</option>
+              <option>Part-time</option>
+              <option>Contract</option>
+              <option>Freelance</option>
+            </select>
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <label for="ownBusiness" class="form-label"
+              >Do you Own a Business</label
+            >
+            <select class="form-select" formControlName="isOwnBusiness">
+              <option selected>Select...</option>
+              <option>Yes</option>
+              <option>No</option>
+            </select>
+          </div>
+
+          <ng-container formGroupName="companyDetails">
+            <div class="col-md-4 mb-3">
+              <label for="company" class="form-label">Company</label>
+              <input
+                type="text"
+                class="form-control"
+                id="company"
+                placeholder="Enter your company name"
+                formControlName="companyName"
+              />
+            </div>
+
+            <div class="col-md-4 mb-3">
+              <label for="position" class="form-label">Position</label>
+              <input
+                type="text"
+                class="form-control"
+                id="position"
+                placeholder="Enter your position"
+                formControlName="position"
+              />
+            </div>
+
+            <div class="col-md-4 mb-3">
+              <label for="salary" class="form-label">Salary</label>
+              <input
+                type="text"
+                class="form-control"
+                id="salary"
+                placeholder="Enter your salary"
+                formControlName="salary"
+              />
+            </div>
+          </ng-container>
+
+          <ng-container formGroupName="businessDetails">
+            <div class="col-md-4 mb-3">
+              <label for="businessName1" class="form-label"
+                >Business Name</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter your company name"
+                formControlName="businessName"
+              />
+            </div>
+
+            <div class="col-md-4 mb-3">
+              <label for="businessType" class="form-label">Business Type</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter your business type"
+                formControlName="businessType"
+              />
+            </div>
+
+            <div class="col-md-4 mb-3">
+              <label for="annualIncome" class="form-label">Annual Income</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter your annual income"
+                formControlName="businessIncome"
+              />
+            </div>
+
+            <div class="col-md-12 mb-3">
+              <label for="businessName2" class="form-label"
+                >Business Address</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter your company name"
+                formControlName="businessAddress"
+              />
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container mt-5">
+    <div class="card">
+      <div class="card-header bg-primary text-white">
+        <h2 class="h4">Contact Details</h2>
+      </div>
+      <div class="card-body">
+        <!-- Email Section -->
+        <div class="row mb-4">
+          <div class="col-md-6 mb-3">
+            <label for="personalEmail" class="form-label fw-bold"
+              >Personal Email</label
+            >
+            <input
+              type="email"
+              class="form-control"
+              id="personalEmail"
+              placeholder="Enter personal email"
+              formControlName="personalEmail"
+            />
+          </div>
+          <div class="col-md-6">
+            <label for="officialEmail" class="form-label fw-bold"
+              >Official Email</label
+            >
+            <input
+              type="email"
+              class="form-control"
+              id="officialEmail"
+              placeholder="Enter official email"
+              formControlName="officialEmail"
+            />
+          </div>
+        </div>
+
+        <hr class="my-4" />
+
+        <ng-container formArrayName="mobileNo">
+          <div
+            *ngFor="let item of mobileNumber.controls; let i = index"
+            [formGroupName]="i"
+          >
+            <div class="mobile-number-group mb-3">
+              <h5 class="h6 mb-3">Mobile No {{ i + 1 }}</h5>
+              <div class="d-flex align-items-center gap-3">
+                <input
+                  type="tel"
+                  class="form-control"
+                  placeholder="Enter mobile number"
+                  formControlName="mobile"
+                />
+
+                <div class="form-check">
+                  <button
+                    type="button"
+                    class="btn btn-danger"
+                    (click)="delete(i)"
+                  >
+                    Remove
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+
+        <!-- Add More Button -->
+        <button
+          type="button"
+          class="btn btn-outline-primary mt-3"
+          id="addMoreBtn"
+          (click)="add()"
+        >
+          Add More
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container mt-5">
+    <button type="submit" class="btn btn-success">Save</button>
+  </div>
+</form>
