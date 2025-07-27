@@ -5,7 +5,7 @@
         <thead>
           <tr>
             <th>Sr No.</th>
-            <th>ID</th>
+
             <th>First Name</th>
             <th>Last Name</th>
             <th>Mobile</th>
@@ -15,15 +15,15 @@
         <tbody>
           <tr *ngFor="let item of AllPost; let i = index">
             <td>{{ i + 1 }}</td>
-            <td>{{ item.id }}</td>
-            <td>{{ item.fName }}</td>
-            <td>{{ item.lName }}</td>
+
+            <td>{{ item.fName | titlecase }}</td>
+            <td>{{ item.lName | titlecase }}</td>
             <td>{{ item.mobile }}</td>
             <td>
-              <button class="btn btn-primary me-3" (click)="editPost()">
+              <button class="btn btn-primary me-2" (click)="editPost(item)">
                 Update
               </button>
-              <button class="btn btn-danger" (click)="deletePost()">
+              <button class="btn btn-danger" (click)="deletePost(item)">
                 Delete
               </button>
             </td>
@@ -63,8 +63,22 @@
           />
         </div>
 
-        <button type="submit" class="btn btn-primary" (click)="addPost()">
+        <button
+          [disabled]="userForm.invalid"
+          *ngIf="!isUpdate"
+          type="submit"
+          class="btn btn-primary me-3"
+          (click)="addPost()"
+        >
           Submit
+        </button>
+        <button
+          *ngIf="isUpdate"
+          type="submit"
+          class="btn btn-primary"
+          (click)="updatePost()"
+        >
+          Update
         </button>
       </form>
     </div>
