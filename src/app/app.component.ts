@@ -12,6 +12,7 @@ import { RouterOutlet } from '@angular/router';
 import { DependentDropdownComponent } from './dependent-dropdown/dependent-dropdown.component';
 import { DynamicformInTableComponent } from './dynamicform-in-table/dynamicform-in-table.component';
 import { AdvanceInlineTableEditingComponent } from './advance-inline-table-editing/advance-inline-table-editing.component';
+import { ApiCallingComponent } from './api-calling/api-calling.component';
 
 @Component({
   selector: 'app-root',
@@ -22,6 +23,7 @@ import { AdvanceInlineTableEditingComponent } from './advance-inline-table-editi
     DependentDropdownComponent,
     DynamicformInTableComponent,
     AdvanceInlineTableEditingComponent,
+    ApiCallingComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

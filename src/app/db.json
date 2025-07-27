@@ -1,0 +1,16 @@
+{
+  "posts": [
+    {
+      "id": 3,
+      "fName": "nawaz",
+      "lName": "khan",
+      "mobile": "9870604032"
+    },
+    {
+      "id": 2,
+      "fName": "Azim",
+      "lName": "Khan",
+      "mobile": "9870666663"
+    }
+  ]
+}
