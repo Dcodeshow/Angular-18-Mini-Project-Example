@@ -1,4 +1,4 @@
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { validate } from './../../node_modules/webpack/types.d';
 import { Component, inject } from '@angular/core';
 import {
@@ -24,8 +24,11 @@ import { ApiCallingComponent } from './api-calling/api-calling.component';
     DynamicformInTableComponent,
     AdvanceInlineTableEditingComponent,
     ApiCallingComponent,
+    NgIf
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent {}
+export class AppComponent {
+  display: boolean = true;
+}

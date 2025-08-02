@@ -1,6 +1,6 @@
 import { NgFor, NgIf, TitleCasePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, inject } from '@angular/core';
+import { Component, ElementRef, inject, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -20,9 +20,12 @@ export class ApiCallingComponent {
   AllPost: any[] = [];
   userForm!: FormGroup;
   isUpdate: boolean = false;
+  uploadedFile: File | null = null;
   private http: HttpClient = inject(HttpClient);
   private fb: FormBuilder = inject(FormBuilder);
   userID: any;
+  // 👇 Reference to file input element
+  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
   ngOnInit(): void {
     this.loadAllPost();
@@ -35,6 +38,7 @@ export class ApiCallingComponent {
       fName: ['', Validators.required],
       lName: ['', Validators.required],
       mobile: ['', Validators.required],
+      imageUrl: [''],
     });
   }
 
@@ -53,6 +57,7 @@ export class ApiCallingComponent {
   }
 
   addPost() {
+    const formData = new FormData();
     this.http
       .post('http://localhost:3000/posts', this.userForm.value)
       .subscribe({
@@ -60,6 +65,7 @@ export class ApiCallingComponent {
           this.loadAllPost();
           this.userForm.reset();
           this.initilizeForm();
+          formData.append('photo', this.userForm.get('photo')?.value);
         },
         error: (err: any) => {
           console.log(err.message);
@@ -87,6 +93,11 @@ export class ApiCallingComponent {
         console.log(response);
         this.loadAllPost();
         this.userForm.reset();
+        this.userForm.patchValue({ imageUrl: null });
+        // ✅ Clear file input from DOM
+        if (this.fileInput) {
+          this.fileInput.nativeElement.value = '';
+        }
       });
   }
 
@@ -98,12 +109,25 @@ export class ApiCallingComponent {
       this.http
         .delete(`http://localhost:3000/posts/${user.id}`)
         .subscribe((response) => {
-          console.log(response);
+          
           this.loadAllPost();
           this.userForm.reset();
         });
     } else {
       console.log('Post deletion cancelled.');
+    }
+  }
+
+  onFileChange(event: any) {
+    const input = event.target as HTMLInputElement;
+    if (input.files?.length) {
+      const file = input.files[0];
+      const reader = new FileReader();
+      reader.onload = () => {
+        const base64 = reader.result as string;
+        this.userForm.patchValue({ imageUrl: base64 });
+      };
+      reader.readAsDataURL(file);
     }
   }
 }

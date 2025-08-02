@@ -5,7 +5,7 @@
         <thead>
           <tr>
             <th>Sr No.</th>
-
+            <th>Photo</th>
             <th>First Name</th>
             <th>Last Name</th>
             <th>Mobile</th>
@@ -15,7 +15,16 @@
         <tbody>
           <tr *ngFor="let item of AllPost; let i = index">
             <td>{{ i + 1 }}</td>
-
+            <td>
+              <img
+                *ngIf="item.imageUrl"
+                [src]="item.imageUrl"
+                alt="User Photo"
+                class="img-thumbnail"
+                style="width: 100px; height: 100px"
+              />
+              <span *ngIf="!item.imageUrl">No Photo</span>
+            </td>
             <td>{{ item.fName | titlecase }}</td>
             <td>{{ item.lName | titlecase }}</td>
             <td>{{ item.mobile }}</td>
@@ -60,6 +69,16 @@
             class="form-control"
             formControlName="mobile"
             placeholder="Enter your message"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="file" class="form-label">Upload Photo</label> <br />
+          <input
+            type="file"
+            accept=".jpg,.jpeg,.png"
+            (change)="onFileChange($event)"
+            #fileInput
           />
         </div>
 
