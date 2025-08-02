@@ -57,7 +57,6 @@ export class ApiCallingComponent {
   }
 
   addPost() {
-    const formData = new FormData();
     this.http
       .post('http://localhost:3000/posts', this.userForm.value)
       .subscribe({
@@ -65,7 +64,6 @@ export class ApiCallingComponent {
           this.loadAllPost();
           this.userForm.reset();
           this.initilizeForm();
-          formData.append('photo', this.userForm.get('photo')?.value);
         },
         error: (err: any) => {
           console.log(err.message);
@@ -79,6 +77,7 @@ export class ApiCallingComponent {
   editPost(user: any) {
     this.userID = user.id;
     this.isUpdate = true;
+    console.log(user);
     this.userForm.patchValue({
       fName: user.fName,
       lName: user.lName,
@@ -109,7 +108,6 @@ export class ApiCallingComponent {
       this.http
         .delete(`http://localhost:3000/posts/${user.id}`)
         .subscribe((response) => {
-          
           this.loadAllPost();
           this.userForm.reset();
         });
