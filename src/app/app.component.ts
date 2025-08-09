@@ -1,3 +1,4 @@
+import { UploadFileInAngularComponent } from './upload-file-in-angular/upload-file-in-angular.component';
 import { NgFor, NgIf } from '@angular/common';
 import { validate } from './../../node_modules/webpack/types.d';
 import { Component, inject } from '@angular/core';
@@ -24,7 +25,8 @@ import { ApiCallingComponent } from './api-calling/api-calling.component';
     DynamicformInTableComponent,
     AdvanceInlineTableEditingComponent,
     ApiCallingComponent,
-    NgIf
+    NgIf,
+    UploadFileInAngularComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
