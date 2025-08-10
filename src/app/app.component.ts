@@ -14,6 +14,7 @@ import { DependentDropdownComponent } from './dependent-dropdown/dependent-dropd
 import { DynamicformInTableComponent } from './dynamicform-in-table/dynamicform-in-table.component';
 import { AdvanceInlineTableEditingComponent } from './advance-inline-table-editing/advance-inline-table-editing.component';
 import { ApiCallingComponent } from './api-calling/api-calling.component';
+import { EmployeeCrudComponent } from './employee-crud/employee-crud.component';
 
 @Component({
   selector: 'app-root',
@@ -27,6 +28,7 @@ import { ApiCallingComponent } from './api-calling/api-calling.component';
     ApiCallingComponent,
     NgIf,
     UploadFileInAngularComponent,
+    EmployeeCrudComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

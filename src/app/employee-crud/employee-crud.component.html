@@ -1,0 +1,241 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div
+        class="p-3 bg-primary text-white rounded d-flex justify-content-between align-items-center"
+      >
+        <h5>New Employee</h5>
+        <button
+          class="btn btn-dark"
+          (click)="viewAllEmployee()"
+        >
+          {{ viewEdit ? "View All Employee" : "Add New Employee" }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-3" *ngIf="!expression">
+    <!-- Employee Form -->
+    <div class="col-lg-6 m-0">
+      <ng-container [formGroup]="employeeForm">
+        <div class="card p-4">
+          <div class="row mb-3">
+            <div class="col-12">
+              <label class="form-label fw-bold">Name</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter Name"
+                formControlName="Name"
+              />
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label class="form-label fw-bold">Contact No</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter Contact No"
+                formControlName="ContactNo"
+              />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold">Email</label>
+              <input
+                type="email"
+                class="form-control"
+                placeholder="Enter Email"
+                formControlName="Email"
+              />
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label class="form-label fw-bold">City</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter City"
+                formControlName="City"
+              />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold">State</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter State"
+                formControlName="State"
+              />
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label class="form-label fw-bold">Pincode</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter Pincode"
+                formControlName="PinCode"
+              />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold">Designation</label>
+              <select class="form-select" formControlName="Designation">
+                <option>Select</option>
+                <option>Manager</option>
+                <option>Developer</option>
+                <option>Designer</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="d-flex gap-2">
+            <button class="btn btn-secondary">Reset</button>
+            <button
+              class="btn btn-success"
+              type="submit"
+              (click)="onSubmit()"
+              [disabled]="isSaveDisabled"
+            >
+              Save Employee
+            </button>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+
+    <!-- Family Details -->
+    <div class="col-lg-6 m-0">
+      <div class="card p-4">
+        <!-- Add Member Inputs -->
+        <form [formGroup]="EmpRelatives" (ngSubmit)="addRelatives()">
+          <div class="row g-2 mb-3">
+            <div class="col-md-4">
+              <label class="form-label fw-bold">Name</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter Name"
+                formControlName="relName"
+              />
+              <span
+                class="text-danger"
+                *ngIf="
+                  EmpRelatives.get('relName')?.invalid &&
+                  EmpRelatives.get('relName')?.touched
+                "
+              >
+                Field is required
+              </span>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label fw-bold">Relation</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Relation"
+                formControlName="relRelation"
+              />
+              <span
+                class="text-danger"
+                *ngIf="
+                  EmpRelatives.get('relRelation')?.invalid &&
+                  EmpRelatives.get('relRelation')?.touched
+                "
+              >
+                Field is required
+              </span>
+            </div>
+            <div class="col-md-2">
+              <label class="form-label fw-bold">Age</label>
+              <input
+                type="number"
+                class="form-control"
+                placeholder="Age"
+                formControlName="relAge"
+              />
+              <span
+                class="text-danger"
+                *ngIf="
+                  EmpRelatives.get('relAge')?.invalid &&
+                  EmpRelatives.get('relAge')?.touched
+                "
+              >
+                required
+              </span>
+            </div>
+            <div class="col-md-2 d-flex align-items-end">
+              <button class="btn btn-primary w-100" type="submit">Add</button>
+            </div>
+          </div>
+        </form>
+
+        <!-- Table -->
+        <table class="table table-bordered align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>Name</th>
+              <th>Relation</th>
+              <th>Age</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let member of familyList; let i = index">
+              <td>{{ member.relName }}</td>
+              <td>{{ member.relRelation }}</td>
+              <td>{{ member.relAge }}</td>
+              <td>
+                <button class="btn btn-danger btn-sm" (click)="onDelete(i)">
+                  Delete
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!--All Employee View-->
+  <div class="row mt-3" *ngIf="expression">
+    <div class="col-md-12">
+      <table class="table table-bordered align-middle">
+        <thead class="table-light">
+          <tr>
+            <th>Name</th>
+            <th>Contact No</th>
+            <th>Email</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Pincode</th>
+            <th>Designation</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let member of allEmployeeDetails; let i = index">
+            <td>{{ member.Name }}</td>
+            <td>{{ member.ContactNo }}</td>
+            <td>{{ member.Email }}</td>
+            <td>{{ member.City }}</td>
+            <td>{{ member.State }}</td>
+            <td>{{ member.PinCode }}</td>
+            <td>{{ member.Designation }}</td>
+            <td>
+              <button class="btn btn-danger btn-sm" (click)="editEmployee(i)">
+                Edit
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
