@@ -1,0 +1,101 @@
+<div class="row">
+  <div class="col-lg-12 m-0">
+    <div class="card p-4">
+      <!-- Add Member Inputs -->
+      <form [formGroup]="EmpRelatives" (ngSubmit)="addRelatives()">
+        <div class="row g-2 mb-3">
+          <!-- Name -->
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Name</mat-label>
+              <input
+                matInput
+                placeholder="Enter Name"
+                formControlName="relName"
+              />
+              <mat-error
+                *ngIf="
+                  EmpRelatives.get('relName')?.invalid &&
+                  EmpRelatives.get('relName')?.touched
+                "
+              >
+                Field is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <!-- Relation -->
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Relation</mat-label>
+              <input
+                matInput
+                placeholder="Relation"
+                formControlName="relRelation"
+              />
+              <mat-error
+                *ngIf="
+                  EmpRelatives.get('relRelation')?.invalid &&
+                  EmpRelatives.get('relRelation')?.touched
+                "
+              >
+                Field is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <!-- Age -->
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Age</mat-label>
+              <input
+                matInput
+                type="number"
+                placeholder="Age"
+                formControlName="relAge"
+              />
+              <mat-error
+                *ngIf="
+                  EmpRelatives.get('relAge')?.invalid &&
+                  EmpRelatives.get('relAge')?.touched
+                "
+              >
+                Required
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <!-- Button -->
+          <div class="col-md-2 d-flex align-items-end">
+            <button
+              mat-raised-button
+              color="primary"
+              class="w-100"
+              type="submit"
+            >
+              Add
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <!-- Table -->
+      <table class="table table-bordered align-middle">
+        <thead class="table-light">
+          <tr>
+            <th>Name</th>
+            <th>Relation</th>
+            <th>Age</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let member of familyList; let i = index">
+            <td>{{ member.relName | titlecase }}</td>
+            <td>{{ member.relRelation | titlecase }}</td>
+            <td>{{ member.relAge }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

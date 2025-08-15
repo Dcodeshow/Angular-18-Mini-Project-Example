@@ -15,6 +15,8 @@ import { DynamicformInTableComponent } from './dynamicform-in-table/dynamicform-
 import { AdvanceInlineTableEditingComponent } from './advance-inline-table-editing/advance-inline-table-editing.component';
 import { ApiCallingComponent } from './api-calling/api-calling.component';
 import { EmployeeCrudComponent } from './employee-crud/employee-crud.component';
+import { RowValueAddControlComponent } from './row-value-add-control/row-value-add-control.component';
+import { MaterialsModule } from './materials/materials.module';
 
 @Component({
   selector: 'app-root',
@@ -29,10 +31,10 @@ import { EmployeeCrudComponent } from './employee-crud/employee-crud.component';
     NgIf,
     UploadFileInAngularComponent,
     EmployeeCrudComponent,
+    RowValueAddControlComponent,
+    MaterialsModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent {
-  display: boolean = true;
-}
+export class AppComponent {}
