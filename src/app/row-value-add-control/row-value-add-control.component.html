@@ -65,15 +65,38 @@
             </mat-form-field>
           </div>
 
+          <!-- Relation -->
+          <div class="col-md-4" *ngIf="EmpRelatives.get('location')">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Location</mat-label>
+              <input
+                matInput
+                placeholder="Location"
+                formControlName="location"
+              />
+              <mat-error
+                *ngIf="
+                  EmpRelatives.get('location')?.invalid &&
+                  EmpRelatives.get('location')?.touched
+                "
+              >
+                Field is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+
           <!-- Button -->
-          <div class="col-md-2 d-flex align-items-end">
+          <div class="col-md-100 d-flex align-items-end">
+            <button mat-raised-button color="primary me-2" type="submit">
+              Add
+            </button>
             <button
               mat-raised-button
               color="primary"
-              class="w-100"
-              type="submit"
+              type="button"
+              (click)="addLocation()"
             >
-              Add
+              Add Location
             </button>
           </div>
         </div>

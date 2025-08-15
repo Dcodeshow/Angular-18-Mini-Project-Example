@@ -24,6 +24,7 @@ export class RowValueAddControlComponent {
   ngOnInit(): void {
     this.initilizeForm();
     this.getRelatives();
+    console.log(this.EmpRelatives.controls);
   }
 
   initilizeForm() {
@@ -55,10 +56,17 @@ export class RowValueAddControlComponent {
     this.http
       .get('http://localhost:3000/RowValue')
       .subscribe((response: any) => {
-        console.log(response); // Response structure देखें
         this.familyList = Array.isArray(response)
           ? response
           : response.data || [];
       });
+  }
+
+  addLocation() {
+    this.EmpRelatives.addControl(
+      'location',
+      this.fb.control('', Validators.required)
+    );
+    console.log(this.EmpRelatives.controls);
   }
 }
