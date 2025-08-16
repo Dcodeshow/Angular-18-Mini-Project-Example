@@ -1,0 +1,40 @@
+/* Confirm dialog styling */
+::ng-deep .confirm-dialog .mat-mdc-dialog-container {
+
+  padding: 16px;
+  background: #fff8f6;
+  /* light red background */
+  border: 2px solid #f44336;
+  /* red border */
+}
+
+/* Success dialog styling */
+::ng-deep .success-dialog .mat-mdc-dialog-container {
+
+  background: #e6f4ea;
+  /* light green */
+  border: 2px solid #4caf50;
+  /* green border */
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1b5e20;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Success dialog inner content */
+::ng-deep .success-content {
+  padding: 10px;
+  width: 100%;
+}
+
+::ng-deep .mat-mdc-dialog-inner-container {
+  width: 100%;
+
+}
+
+::ng-deep .mat-mdc-dialog-surface {
+  border-radius: 0 !important;
+}

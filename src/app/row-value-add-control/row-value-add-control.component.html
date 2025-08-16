@@ -87,7 +87,19 @@
 
           <!-- Button -->
           <div class="col-md-100 d-flex align-items-end">
-            <button mat-raised-button color="primary me-2" type="submit">
+            <button
+              mat-raised-button
+              color="matcolor"
+              type="submit"
+              class="me-2"
+            >
+              <div
+                *ngIf="isAPICallingInProgress"
+                class="spinner-border spinner-border-sm"
+                role="status"
+              >
+                <span class="visually-hidden">Loading...</span>
+              </div>
               Add
             </button>
             <button
@@ -109,16 +121,51 @@
             <th>Name</th>
             <th>Relation</th>
             <th>Age</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let member of familyList; let i = index">
-            <td>{{ member.relName | titlecase }}</td>
-            <td>{{ member.relRelation | titlecase }}</td>
-            <td>{{ member.relAge }}</td>
-          </tr>
+          <ng-container *ngIf="!isTableloaded">
+            <tr *ngFor="let member of familyList; let i = index">
+              <td>{{ member.relName | titlecase }}</td>
+              <td>{{ member.relRelation | titlecase }}</td>
+              <td>{{ member.relAge }}</td>
+              <td>
+                <button class="btn btn-danger" (click)="openDialog(member)">
+                  Delete
+                </button>
+              </td>
+            </tr>
+          </ng-container>
+          <ng-container *ngIf="isTableloaded">
+            <tr>
+              <td colspan="3" class="text-center">
+                <div class="spinner-border text-success" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+              </td>
+            </tr>
+          </ng-container>
         </tbody>
       </table>
     </div>
   </div>
 </div>
+
+<ng-template class="confirm-dailog" #confirmDailog>
+  <h2 mat-dialog-title>⚠️ Confirm Delete</h2>
+  <mat-dialog-content>Are you sure you want to delete?</mat-dialog-content>
+  <mat-dialog-actions align="center">
+    <button mat-stroked-button color="primary" mat-dialog-close="false">
+      Cancel
+    </button>
+    <button mat-raised-button color="warn" mat-dialog-close="true">
+      Delete
+    </button>
+  </mat-dialog-actions>
+</ng-template>
+
+<!-- Success Dialog -->
+<ng-template #successDialog>
+  <div class="success-content">✅ Delete Successful!</div>
+</ng-template>
