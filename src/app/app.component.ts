@@ -17,6 +17,7 @@ import { ApiCallingComponent } from './api-calling/api-calling.component';
 import { EmployeeCrudComponent } from './employee-crud/employee-crud.component';
 import { RowValueAddControlComponent } from './row-value-add-control/row-value-add-control.component';
 import { MaterialsModule } from './materials/materials.module';
+import { TechADMComponent } from './tech-adm/tech-adm.component';
 
 @Component({
   selector: 'app-root',
@@ -33,6 +34,7 @@ import { MaterialsModule } from './materials/materials.module';
     EmployeeCrudComponent,
     RowValueAddControlComponent,
     MaterialsModule,
+    TechADMComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
