@@ -8,7 +8,6 @@
           <th>Address</th>
           <th>Passport Number</th>
           <th>Lie Number</th>
-          <th>Action</th>
         </tr>
       </thead>
 
@@ -37,9 +36,9 @@
             <input formControlName="address" placeholder="Enter address" />
           </td>
 
-          <!-- Passport Number: added dynamically -->
+          <!-- Passport Number (only for Individual) -->
           <td>
-            <ng-container *ngIf="promoter.get('passportnumber')">
+            <ng-container *ngIf="isIndividualSelected(i)">
               <input
                 formControlName="passportnumber"
                 placeholder="Enter passport number"
@@ -47,19 +46,23 @@
             </ng-container>
           </td>
 
-          <!-- Lie Number: added dynamically -->
+          <!-- Lie Number (only for Company) -->
           <td>
-            <ng-container *ngIf="promoter.get('lienumber')">
+            <ng-container *ngIf="isCompanySelected(i)">
               <input
                 formControlName="lienumber"
                 placeholder="Enter lie number"
               />
+              <div
+                class="error"
+                *ngIf="
+                  promoter.get('lienumber')?.touched &&
+                  promoter.get('lienumber')?.hasError('required')
+                "
+              >
+                Lie Number is required for company promoters
+              </div>
             </ng-container>
-          </td>
-
-          <!-- Action -->
-          <td>
-            <button type="button" (click)="removePromoter(i)">Remove</button>
           </td>
         </tr>
       </tbody>
