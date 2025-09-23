@@ -1,0 +1,40 @@
+<div
+  class="upload-container"
+  (dragover)="onDragOver($event)"
+  (dragleave)="onDragLeave($event)"
+  (drop)="onFileDrop($event)"
+  [class.dragover]="isDragOver"
+>
+  <label for="fileInput" class="upload-box">
+    <mat-icon>cloud_upload</mat-icon>
+    <span>Upload a file or drag & drop it here</span>
+    <small>Only PDF format, up to 50MB</small>
+  </label>
+
+  <input
+    type="file"
+    id="fileInput"
+    hidden
+    (change)="onFileSelected($event)"
+    accept="application/pdf"
+  />
+</div>
+
+<!-- Show selected file -->
+<div *ngIf="selectedFile" class="file-info">
+  <mat-icon>description</mat-icon> {{ selectedFile.name }}
+  <button mat-button color="primary" (click)="uploadFile()">Upload</button>
+  <button mat-icon-button color="warn" (click)="removeFile()">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<!-- Show uploaded files -->
+<div *ngIf="uploadedFiles.length > 0" class="uploaded-list">
+  <h3>Uploaded Files</h3>
+  <ul>
+    <li *ngFor="let f of uploadedFiles">
+      <mat-icon>picture_as_pdf</mat-icon> {{ f.name }}
+    </li>
+  </ul>
+</div>

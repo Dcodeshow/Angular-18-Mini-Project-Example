@@ -45,4 +45,83 @@ import { SelectAllCheckboxComponent } from './select-all-checkbox/select-all-che
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent {}
+export class AppComponent {
+  selectedFile: File | null = null;
+  isDragOver = false;
+  uploadedFiles: any[] = [];
+  apiUrl = 'http://localhost:3000/files';
+
+  constructor(private http: HttpClient) {}
+
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files?.length) {
+      this.validateFile(input.files[0]);
+    }
+  }
+
+  onDragOver(event: DragEvent) {
+    event.preventDefault();
+    this.isDragOver = true;
+  }
+
+  onDragLeave(event: DragEvent) {
+    event.preventDefault();
+    this.isDragOver = false;
+  }
+
+  onFileDrop(event: DragEvent) {
+    event.preventDefault();
+    this.isDragOver = false;
+    if (event.dataTransfer?.files.length) {
+      this.validateFile(event.dataTransfer.files[0]);
+    }
+  }
+
+  validateFile(file: File) {
+    if (file.type !== 'application/pdf') {
+      alert('Only PDF files are allowed!');
+      return;
+    }
+    if (file.size > 50 * 1024 * 1024) {
+      alert('File size must be less than 50MB!');
+      return;
+    }
+    this.selectedFile = file;
+  }
+
+  uploadFile() {
+    if (!this.selectedFile) return;
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      const base64String = reader.result as string;
+
+      const payload = {
+        name: this.selectedFile!.name,
+        content: base64String,
+      };
+
+      this.http.post(this.apiUrl, payload).subscribe(() => {
+        alert('File uploaded successfully!');
+        this.selectedFile = null;
+        this.loadFiles();
+      });
+    };
+    reader.readAsDataURL(this.selectedFile);
+  }
+
+  removeFile() {
+    this.selectedFile = null;
+  }
+
+  loadFiles() {
+    this.http.get<any[]>(this.apiUrl).subscribe((files) => {
+      this.uploadedFiles = files;
+    });
+  }
+
+  ngOnInit() {
+    this.loadFiles();
+  }
+}
