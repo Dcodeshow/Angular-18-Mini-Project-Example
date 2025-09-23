@@ -10,18 +10,12 @@
           <th>Lie Number</th>
         </tr>
       </thead>
-
       <tbody>
         <tr
           *ngFor="let promoter of promotersFormArray.controls; let i = index"
           [formGroupName]="i"
         >
-          <!-- Name -->
-          <td>
-            <input formControlName="name" placeholder="Enter name" />
-          </td>
-
-          <!-- Promoter Type -->
+          <td><input formControlName="name" placeholder="Enter name" /></td>
           <td>
             <select formControlName="promotertypeid">
               <option value="">Select Type</option>
@@ -30,47 +24,41 @@
               <option value="partnership">Partnership</option>
             </select>
           </td>
-
-          <!-- Address -->
           <td>
             <input formControlName="address" placeholder="Enter address" />
           </td>
-
-          <!-- Passport Number (only for Individual) -->
           <td>
-            <ng-container *ngIf="isIndividualSelected(i)">
-              <input
-                formControlName="passportnumber"
-                placeholder="Enter passport number"
-              />
-            </ng-container>
+            <input
+              formControlName="passportnumber"
+              placeholder="Enter passport number"
+            />
+            <div
+              class="error"
+              *ngIf="
+                promoter.get('passportnumber')?.touched &&
+                promoter.get('passportnumber')?.hasError('required')
+              "
+            >
+              Passport Number is required for individual promoters
+            </div>
           </td>
-
-          <!-- Lie Number (only for Company) -->
           <td>
-            <ng-container *ngIf="isCompanySelected(i)">
-              <input
-                formControlName="lienumber"
-                placeholder="Enter lie number"
-              />
-              <div
-                class="error"
-                *ngIf="
-                  promoter.get('lienumber')?.touched &&
-                  promoter.get('lienumber')?.hasError('required')
-                "
-              >
-                Lie Number is required for company promoters
-              </div>
-            </ng-container>
+            <input formControlName="lienumber" placeholder="Enter lie number" />
+            <div
+              class="error"
+              *ngIf="
+                promoter.get('lienumber')?.touched &&
+                promoter.get('lienumber')?.hasError('required')
+              "
+            >
+              Lie Number is required for company promoters
+            </div>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
-
   <br />
-
   <button type="button" (click)="addPromoter()">Add Promoter</button>
   <button type="submit">Submit</button>
 </form>

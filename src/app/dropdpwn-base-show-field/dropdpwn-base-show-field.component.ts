@@ -26,70 +26,64 @@ export class DropdpwnBaseShowFieldComponent {
       promoters: this.fb.array([]),
     });
 
-    // add one row by default
-    this.addPromoter();
+    this.addPromoter(); // add initial row
   }
 
-  // getter for form array
   get promotersFormArray(): FormArray {
     return this.promotersForm.get('promoters') as FormArray;
   }
 
-  // create promoter form group
   createPromoter(data: any = {}): FormGroup {
-    return this.fb.group({
+    const group = this.fb.group({
       name: [data.name || '', Validators.required],
       promotertypeid: [data.promotertypeid || '', Validators.required],
       address: [data.address || '', Validators.required],
-      passportnumber: [data.passportnumber || ''],
-      lienumber: [data.lienumber || ''],
+      passportnumber: [{ value: data.passportnumber || '', disabled: true }],
+      lienumber: [{ value: data.lienumber || '', disabled: true }],
     });
-  }
 
-  // add promoter
-  addPromoter(): void {
-    const group = this.createPromoter();
-    this.promotersFormArray.push(group);
-
-    // subscribe to changes of promotertypeid for dynamic validator
+    // Subscribe to changes
     group.get('promotertypeid')?.valueChanges.subscribe(() => {
-      this.onPromoterTypeChange(group);
+      this.updateFieldState(group);
     });
+
+    // 👇 Run once initially for default row
+    this.updateFieldState(group);
+
+    return group;
   }
 
-  // remove promoter
+  addPromoter(): void {
+    this.promotersFormArray.push(this.createPromoter());
+  }
+
   removePromoter(index: number): void {
     this.promotersFormArray.removeAt(index);
   }
 
-  // dynamic validator
-  onPromoterTypeChange(promoter: FormGroup): void {
+  updateFieldState(promoter: FormGroup): void {
     const type = promoter.get('promotertypeid')?.value?.toLowerCase();
 
-    if (type && type.includes('company')) {
+    // Reset validators & disable both
+    promoter.get('passportnumber')?.clearValidators();
+    promoter.get('passportnumber')?.disable();
+    promoter.get('lienumber')?.clearValidators();
+    promoter.get('lienumber')?.disable();
+
+    if (type === 'individual') {
+      promoter.get('passportnumber')?.setValidators([Validators.required]);
+      promoter.get('passportnumber')?.enable();
+    } else if (type === 'company') {
       promoter.get('lienumber')?.setValidators([Validators.required]);
-    } else {
-      promoter.get('lienumber')?.clearValidators();
+      promoter.get('lienumber')?.enable();
     }
+
+    // Update validity
+    promoter.get('passportnumber')?.updateValueAndValidity();
     promoter.get('lienumber')?.updateValueAndValidity();
   }
 
-  // submit
   onSubmit(): void {
     console.log(this.promotersForm.value);
-  }
-
-  // Show passport number only if type = individual
-  isIndividualSelected(index: number): boolean {
-    const promoter = this.promotersFormArray.at(index);
-    return (
-      promoter.get('promotertypeid')?.value?.toLowerCase() === 'individual'
-    );
-  }
-
-  // Show lie number only if type = company
-  isCompanySelected(index: number): boolean {
-    const promoter = this.promotersFormArray.at(index);
-    return promoter.get('promotertypeid')?.value?.toLowerCase() === 'company';
   }
 }

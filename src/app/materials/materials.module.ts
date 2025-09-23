@@ -1,3 +1,4 @@
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -19,6 +20,8 @@ const MATERIALS_COMPONENTS: any[] = [
   MatToolbarModule,
   MatCardModule,
   MatDialogModule,
+  MatButtonModule,
+  MatCheckboxModule,
 ];
 
 @NgModule({
