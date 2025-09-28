@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 const MATERIALS_COMPONENTS: any[] = [
   MatFormFieldModule,
@@ -20,8 +21,8 @@ const MATERIALS_COMPONENTS: any[] = [
   MatToolbarModule,
   MatCardModule,
   MatDialogModule,
-  MatButtonModule,
   MatCheckboxModule,
+  MatSnackBarModule,
 ];
 
 @NgModule({
