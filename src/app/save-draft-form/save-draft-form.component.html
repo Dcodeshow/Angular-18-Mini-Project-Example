@@ -1,0 +1,74 @@
+<div class="container py-4">
+  <div class="border rounded-3 p-4">
+    <h4 class="text-primary mb-4 text-center fw-semibold">User Details Form</h4>
+
+    <form [formGroup]="detailsForm" class="row g-3 align-items-end">
+      <!-- Full Name -->
+      <div class="col-md-3">
+        <label for="fullName" class="form-label fw-semibold">Full Name</label>
+        <input
+          id="fullName"
+          type="text"
+          class="form-control form-control-sm"
+          placeholder="Enter name"
+          formControlName="fullName"
+        />
+      </div>
+
+      <!-- Phone -->
+      <div class="col-md-2">
+        <label for="phone" class="form-label fw-semibold">Phone</label>
+        <input
+          id="phone"
+          type="tel"
+          class="form-control form-control-sm"
+          placeholder="Enter phone"
+          formControlName="phone"
+        />
+      </div>
+
+      <!-- Address -->
+      <div class="col-md-3">
+        <label for="address" class="form-label fw-semibold">Address</label>
+        <input
+          id="address"
+          type="text"
+          class="form-control form-control-sm"
+          placeholder="Enter address"
+          formControlName="address"
+        />
+      </div>
+
+      <!-- Message -->
+      <div class="col-md-2">
+        <label for="message" class="form-label fw-semibold">Message</label>
+        <input
+          id="message"
+          type="text"
+          class="form-control form-control-sm"
+          placeholder="Enter message"
+          formControlName="message"
+        />
+      </div>
+
+      <!-- Buttons -->
+      <div class="col-md-2 d-flex justify-content-end gap-2">
+        <button
+          type="button"
+          class="btn btn-outline-secondary btn-sm"
+          (click)="saveDraft()"
+        >
+          💾 Draft
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary btn-sm"
+          [disabled]="!detailsForm.valid"
+          (click)="submitForm()"
+        >
+          🚀 Submit
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
