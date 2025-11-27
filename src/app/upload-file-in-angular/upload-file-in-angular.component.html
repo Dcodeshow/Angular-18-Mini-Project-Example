@@ -1,12 +1,150 @@
-<div class="container">
-  <div class="mt-3 p-3 bg-primary text-white rounded">
-    <h1>File Upload</h1>
-    <p>With API and File type and File Size Check</p>
-  </div>
-  <div class="row pt-3">
-    <div class="col-3">
-      <input type="file" (change)="uploadFile($event)" />
-    </div>
-  </div>
-  <div class="row"></div>
+<div class="container" style="padding: 20px">
+  <mat-card class="p-5">
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>First Name</mat-label>
+            <input
+              matInput
+              formControlName="firstName"
+              placeholder="Enter First Name"
+            />
+            <mat-error
+              *ngIf="
+                form.get('firstName')?.touched && form.get('firstName')?.invalid
+              "
+            >
+              First Name is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Last Name</mat-label>
+            <input
+              matInput
+              formControlName="lastName"
+              placeholder="Enter Last Name"
+            />
+            <mat-error
+              *ngIf="
+                form.get('lastName')?.touched && form.get('lastName')?.invalid
+              "
+            >
+              Last Name is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- FILE 1 + DATE 1 -->
+      <div class="row mt-3">
+        <div class="col-md-6">
+          <button
+            mat-raised-button
+            color="primary"
+            type="button"
+            (click)="fileInput1.click()"
+          >
+            Select Attachment 1
+          </button>
+          <input
+            type="file"
+            hidden
+            #fileInput1
+            (change)="onFileChange($event, 'attachment1', 'uploadDate1')"
+          />
+          <span class="ms-2">{{ form.get("attachment1")?.value?.name }}</span>
+          <mat-error
+            *ngIf="
+              form.get('attachment1')?.touched &&
+              form.get('attachment1')?.invalid
+            "
+          >
+            Valid file required
+          </mat-error>
+        </div>
+
+        <div class="col-md-6">
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="picker1"
+              formControlName="uploadDate1"
+              readonly
+            />
+            <mat-datepicker-toggle
+              matIconSuffix
+              [for]="picker1"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- FILE 2 + DATE 2 -->
+      <div class="row mt-3">
+        <div class="col-md-6">
+          <button
+            mat-raised-button
+            color="primary"
+            type="button"
+            (click)="fileInput2.click()"
+          >
+            Select Attachment 2
+          </button>
+          <input
+            type="file"
+            hidden
+            #fileInput2
+            (change)="onFileChange($event, 'attachment2', 'uploadDate2')"
+          />
+          <span class="ms-2">{{ form.get("attachment2")?.value?.name }}</span>
+          <mat-error
+            *ngIf="
+              form.get('attachment2')?.touched &&
+              form.get('attachment2')?.invalid
+            "
+          >
+            Valid file required
+          </mat-error>
+        </div>
+
+        <div class="col-md-6">
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="picker2"
+              formControlName="uploadDate2"
+              readonly
+            />
+            <mat-datepicker-toggle
+              matIconSuffix
+              [for]="picker2"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- BUTTONS -->
+      <div class="mt-4">
+        <button
+          mat-stroked-button
+          color="accent"
+          type="button"
+          (click)="saveDraft()"
+        >
+          Save Draft
+        </button>
+        <button mat-raised-button color="primary" type="submit" class="ms-3">
+          Submit
+        </button>
+      </div>
+    </form>
+  </mat-card>
 </div>
