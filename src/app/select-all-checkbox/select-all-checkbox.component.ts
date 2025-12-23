@@ -5,6 +5,7 @@ import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
 import { MaterialsModule } from '../materials/materials.module';
 import { NgFor } from '@angular/common';
@@ -18,81 +19,53 @@ import { NgFor } from '@angular/common';
 })
 export class SelectAllCheckboxComponent {
   form!: FormGroup;
-  items: any[] = [];
+  IssuesList: any[] = [];
   selectAllChecked = false;
   apiUrl = 'http://localhost:3000/checklist';
+  apiUrlList = 'http://localhost:3000/IssueList';
 
   constructor(private fb: FormBuilder, private http: HttpClient) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      checkList: this.fb.array([]),
+      checkList: ['', Validators.required],
     });
+    this.issuesClause();
+    setTimeout(() => {
+      console.log(this.IssuesList);
+    }, 2000);
+  }
 
-    this.loadData();
-
-    // 👇 Listen for changes
-    this.form.valueChanges.subscribe(() => {
-      this.updateSelectAllState();
+  toggleSelectAll($event: any) {
+    let checked = $event.checked;
+    this.IssuesList.forEach((issue) => {
+      issue.checked = checked;
     });
   }
 
-  get checkListFormArray(): FormArray {
-    return this.form.get('checkList') as FormArray;
-  }
-
-  loadData() {
+  issuesClause() {
     this.http.get<any[]>(this.apiUrl).subscribe((data) => {
-      this.items = data;
-      this.setCheckboxes();
+      this.IssuesList = data.map((issue) => ({
+        ...issue,
+        checked: false,
+      }));
     });
   }
 
-  setCheckboxes() {
-    this.checkListFormArray.clear();
-    this.items.forEach((item) => {
-      this.checkListFormArray.push(
-        this.fb.group({
-          id: item.id,
-          text: item.text,
-          checked: item.checked,
-        })
-      );
-    });
-
-    this.updateSelectAllState();
-  }
-
-  toggleSelectAll(event: any) {
-    console.log(event.checked);
-    this.selectAllChecked = event.checked;
-    this.checkListFormArray.controls.forEach((ctrl) => {
-      ctrl.patchValue({ checked: this.selectAllChecked }, { emitEvent: false });
-    });
-  }
-
-  updateSelectAllState() {
-    const allChecked = this.checkListFormArray.controls.every(
-      (ctrl) => ctrl.value.checked
-    );
-    this.selectAllChecked = allChecked;
+  onSingleSelect(issue: any, $event: any) {
+    let checked = $event.checked;
+    issue.checked = checked;
+    if (!$event.checked) {
+      // 👇 ek bhi unchecked mila → Select All false
+      this.selectAllChecked = false;
+    } else {
+      // 👇 sab checked hain ya nahi check karo
+      this.selectAllChecked = this.IssuesList.every((i) => i.checked);
+    }
   }
 
   onSubmit() {
-    const selected = this.checkListFormArray.value.filter(
-      (x: any) => x.checked
-    );
-
-    console.log('Selected Items:', selected);
-
-    // Example: PATCH checked state to JSON server
-    this.checkListFormArray.controls.forEach((ctrl) => {
-      const value = ctrl.value;
-      this.http
-        .patch(`${this.apiUrl}/${value.id}`, { checked: value.checked })
-        .subscribe();
-    });
-
-    alert('Submitted Successfully!');
+    const selected = this.IssuesList.filter((i) => i.checked);
+    console.log('Selected Issues:', selected);
   }
 }

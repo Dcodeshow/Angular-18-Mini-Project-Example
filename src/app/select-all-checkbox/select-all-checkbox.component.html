@@ -7,15 +7,15 @@
     Select All
   </mat-checkbox>
 
-  <div formArrayName="checkList" class="mt-3">
-    <div
-      *ngFor="let group of checkListFormArray.controls; let i = index"
-      [formGroupName]="i"
-    >
-      <mat-checkbox formControlName="checked" color="accent">
-        {{ group.value.text }}
+  <div class="mt-3">
+    <ng-container *ngFor="let merchant of IssuesList">
+      <mat-checkbox
+        [checked]="merchant.checked"
+        (change)="onSingleSelect(merchant, $event)"
+      >
+        {{ merchant.text }}
       </mat-checkbox>
-    </div>
+    </ng-container>
   </div>
 
   <button mat-raised-button color="primary" type="submit" class="mt-4">
