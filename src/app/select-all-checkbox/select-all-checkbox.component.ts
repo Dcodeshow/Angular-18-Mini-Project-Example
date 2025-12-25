@@ -21,6 +21,7 @@ export class SelectAllCheckboxComponent {
   form!: FormGroup;
   IssuesList: any[] = [];
   selectAllChecked = false;
+  checkedAll = false;
   apiUrl = 'http://localhost:3000/checklist';
   apiUrlList = 'http://localhost:3000/IssueList';
 
@@ -31,16 +32,14 @@ export class SelectAllCheckboxComponent {
       checkList: ['', Validators.required],
     });
     this.issuesClause();
-    setTimeout(() => {
-      console.log(this.IssuesList);
-    }, 2000);
   }
 
   toggleSelectAll($event: any) {
-    let checked = $event.checked;
+    this.checkedAll = $event.checked;
     this.IssuesList.forEach((issue) => {
-      issue.checked = checked;
+      issue.checked = this.checkedAll;
     });
+    this.checkedAll = this.checkedAll;
   }
 
   issuesClause() {
@@ -53,19 +52,20 @@ export class SelectAllCheckboxComponent {
   }
 
   onSingleSelect(issue: any, $event: any) {
-    let checked = $event.checked;
-    issue.checked = checked;
-    if (!$event.checked) {
-      // 👇 ek bhi unchecked mila → Select All false
-      this.selectAllChecked = false;
-    } else {
-      // 👇 sab checked hain ya nahi check karo
-      this.selectAllChecked = this.IssuesList.every((i) => i.checked);
-    }
+    issue.checked = $event.checked;
+    this.selectAllChecked = this.IssuesList.every((i) => i.checked);
+    this.checkedAll = this.selectAllChecked;
   }
 
   onSubmit() {
-    const selected = this.IssuesList.filter((i) => i.checked);
-    console.log('Selected Issues:', selected);
+    const selectedIds = this.IssuesList.filter((i) => i.checked).map(
+      (i) => i.id
+    );
+
+    // 👇 yahin form me push ho raha hai
+    this.form.patchValue({
+      checkList: selectedIds,
+    });
+    console.log(this.form.value);
   }
 }

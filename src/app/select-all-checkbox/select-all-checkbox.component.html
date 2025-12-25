@@ -18,7 +18,13 @@
     </ng-container>
   </div>
 
-  <button mat-raised-button color="primary" type="submit" class="mt-4">
+  <button
+    mat-raised-button
+    color="primary"
+    type="submit"
+    class="mt-4"
+    [disabled]="!checkedAll"
+  >
     Submit
   </button>
 </form>
