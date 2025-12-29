@@ -3,6 +3,7 @@
     [checked]="selectAllChecked"
     (change)="toggleSelectAll($event)"
     color="primary"
+    [disabled]="isSubmitted"
   >
     Select All
   </mat-checkbox>
@@ -10,6 +11,7 @@
   <div class="mt-3">
     <ng-container *ngFor="let merchant of IssuesList">
       <mat-checkbox
+        [disabled]="isSubmitted"
         [checked]="merchant.checked"
         (change)="onSingleSelect(merchant, $event)"
       >
@@ -18,12 +20,16 @@
     </ng-container>
   </div>
 
+  <p *ngIf="!checkedAll" class="text-muted bg-warning py-2 px-3 mt-3">
+    Please select all checklist items to enable Submit
+  </p>
+
   <button
     mat-raised-button
     color="primary"
     type="submit"
     class="mt-4"
-    [disabled]="!checkedAll"
+    [disabled]="!checkedAll || isSubmitted"
   >
     Submit
   </button>

@@ -8,12 +8,12 @@ import {
   Validators,
 } from '@angular/forms';
 import { MaterialsModule } from '../materials/materials.module';
-import { NgFor } from '@angular/common';
+import { CommonModule, NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-select-all-checkbox',
   standalone: true,
-  imports: [MaterialsModule, ReactiveFormsModule, NgFor],
+  imports: [MaterialsModule, ReactiveFormsModule, CommonModule],
   templateUrl: './select-all-checkbox.component.html',
   styleUrl: './select-all-checkbox.component.scss',
 })
@@ -24,6 +24,7 @@ export class SelectAllCheckboxComponent {
   checkedAll = false;
   apiUrl = 'http://localhost:3000/checklist';
   apiUrlList = 'http://localhost:3000/IssueList';
+  isSubmitted = false;
 
   constructor(private fb: FormBuilder, private http: HttpClient) {}
 
@@ -66,6 +67,11 @@ export class SelectAllCheckboxComponent {
     this.form.patchValue({
       checkList: selectedIds,
     });
-    console.log(this.form.value);
+
+    this.http.post(this.apiUrlList, this.form.value).subscribe((response) => {
+      console.log('Form submitted successfully', response);
+      alert('Form submitted successfully');
+      this.isSubmitted = true;
+    });
   }
 }
