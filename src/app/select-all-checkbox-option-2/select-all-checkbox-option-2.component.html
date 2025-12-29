@@ -1,4 +1,9 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()" class="p-3">
+<form
+  [formGroup]="form"
+  (ngSubmit)="onSubmit()"
+  class="p-3"
+  *ngIf="isDataLoaded"
+>
   <mat-checkbox
     [checked]="selectAllChecked"
     (change)="toggleSelectAll($event)"

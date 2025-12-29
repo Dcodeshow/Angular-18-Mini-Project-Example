@@ -24,7 +24,7 @@ export class SelectAllCheckboxOption2Component {
   apiUrl = 'http://localhost:3000/checklist';
   apiUrlList = 'http://localhost:3000/IssueListSelected';
   isSubmitted = false;
-
+  isDataLoaded = false;
   constructor(private fb: FormBuilder, private http: HttpClient) {}
 
   ngOnInit(): void {
@@ -46,6 +46,8 @@ export class SelectAllCheckboxOption2Component {
         if (res?.length && res[0].checkList.isUndertakingSubmitted === 'Y') {
           this.applySubmittedState(res[0].checkList);
         }
+        // 🔥 data ready
+        this.isDataLoaded = true;
       });
   }
 
