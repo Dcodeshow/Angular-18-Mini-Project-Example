@@ -6,6 +6,7 @@ import { SelectAllCheckboxComponent } from './select-all-checkbox/select-all-che
 import { SaveDraftFormComponent } from './save-draft-form/save-draft-form.component';
 import { ChildComponent } from './child/child.component';
 import { UploadFileInAngularComponent } from './upload-file-in-angular/upload-file-in-angular.component';
+import { SelectAllCheckboxOption2Component } from './select-all-checkbox-option-2/select-all-checkbox-option-2.component';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +20,7 @@ import { UploadFileInAngularComponent } from './upload-file-in-angular/upload-fi
     SaveDraftFormComponent,
     ChildComponent,
     UploadFileInAngularComponent,
+    SelectAllCheckboxOption2Component,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

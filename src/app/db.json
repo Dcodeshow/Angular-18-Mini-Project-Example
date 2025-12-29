@@ -125,29 +125,17 @@
       "text": "the issuer has adhered to the conditions precedent to listing under Securities Contracts (Regulations) Act 1956, Companies Act 2013, RBI Guidelines, Securities and Exchange Board of India Act 1992, any rules and/or regulations framed and circulars, clarifications, guidelines issued, under foregoing statutes; and no statutory authority has restrained the issuer from issuing its securities to public through IPO."
     }
   ],
-  "IssueList": [
+  "IssueList": [],
+  "IssueListSelected": [
     {
-      "id": "d7c7",
-      "checkList": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6
-      ]
-    },
-    {
-      "id": "3a46",
-      "checkList": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6
-      ]
+      "id": "1e11",
+      "checkList": {
+        "isUndertakingSubmitted": "Y",
+        "ipoId": 10256,
+        "mbId": "56"
+      }
     }
+    
   ],
   "userForms": [
     {
